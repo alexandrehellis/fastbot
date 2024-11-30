@@ -1,0 +1,25 @@
+# Use a imagem base do Python
+FROM python:3.11-slim
+
+# Defina variáveis de ambiente
+ENV PYTHONUNBUFFERED=1
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie o arquivo de requisitos e instale as dependências
+COPY requirements.txt requirements.txt
+RUN python -m pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copie o restante dos arquivos da aplicação
+COPY . .
+
+# Defina a variável de ambiente para o Flask
+ENV FLASK_APP=main.py
+
+# Exponha a porta em que o Flask irá rodar
+EXPOSE 8000
+
+# Comando para iniciar a aplicação Flask
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: whats_bot_api
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./qrcodes:/app/qrcodes
